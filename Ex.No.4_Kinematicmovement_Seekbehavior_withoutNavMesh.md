@@ -1,6 +1,6 @@
 # Ex.No: 4  Implementation of Kinematic movement -seek and Flee behavior in Unity
-### DATE:                                                                            
-### REGISTER NUMBER : 
+### DATE: 12/05/2026                                                                           
+### REGISTER NUMBER : 212223240062
 ### AIM: 
 To write a program to simulate the process of seek and Flee behavior in Unity without NavigationMeshAgent. 
 ### Algorithm:
@@ -27,60 +27,43 @@ To write a program to simulate the process of seek and Flee behavior in Unity wi
 ```
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Threading;
 using UnityEngine;
 
-public class seekScript : MonoBehaviour
+public class seekandflee : MonoBehaviour
 {
     // Start is called before the first frame update
+    public Transform o1;
     public Transform target;  // The object to seek
-    public float speed = 5f;  // Movement speed
+    public Transform o3;
+    public float speed = 4f;  // Movement speed
     void Start()
     {
-        
+
     }
 
+    void flee()
+    {
+        Vector3 dir = (o3.position - target.position).normalized;
+        o3.position += dir * speed * Time.deltaTime;
+    }
+
+    void seek()
+    {
+        Vector3 dir1 = (target.position - o1.position).normalized;
+        o1.position += dir1 * speed * Time.deltaTime;
+    }
     // Update is called once per frame
     void Update()
     {
-        if (target == null) return;  // Exit if no target is assigned
-
-        // Calculate the desired direction
-        Vector3 direction = (target.position - transform.position).normalized;
-
-        // Move the object towards the target
-        transform.position += direction * speed * Time.deltaTime;
-    }
-}
-```
-```
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class fleeScript : MonoBehaviour
-{
-    // Start is called before the first frame update
-    public Transform target;  // The object to seek
-    public float speed = 5f;  // Movement speed
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (target == null) return;  // Exit if no target is assigned
-
-        // Calculate the desired direction
-        Vector3 direction = (transform.position-target.position).normalized;
-
-        // Move the object towards the target
-        transform.position += direction * speed * Time.deltaTime;
+        seek();
+        flee();
     }
 }
 ```
 ### Output:
+<img width="1917" height="1017" alt="exp4-seekandflee" src="https://github.com/user-attachments/assets/6000704e-30e5-4fb6-90c2-0141838aa2c4" />
 
 
 
