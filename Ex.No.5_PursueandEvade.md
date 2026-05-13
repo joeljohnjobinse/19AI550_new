@@ -32,72 +32,80 @@ To write a program to simulate the process of Pursue and Evade behavior in Unity
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Player_movement : MonoBehaviour
+public class pursueandevade : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float speed;
+    public NavMeshAgent pursuerAgent;
+    public NavMeshAgent evaderAgent;
+    public NavMeshAgent playerAgent;
+
+    public Transform player;
+    public Transform pursuer;
+    public Transform evader;
+
+    public float pursueSpeed = 4f;
+    public float evadeSpeed = 6f;
+
     void Start()
     {
-        float xdir = Input.GetAxis("Horizontal") * speed;
-        float zdir = Input.GetAxis("Vertical") * speed;
-        transform.position=new Vector3(xdir,zdir);
+        pursuerAgent = pursuer.GetComponent<NavMeshAgent>();
+        evaderAgent = evader.GetComponent<NavMeshAgent>();
+        playerAgent = player.GetComponent<NavMeshAgent>();
+
+        // Player initial movement
+        Vector3 randomPos = new Vector3(
+            UnityEngine.Random.Range(-4f, 4f),
+            0.5f,
+            UnityEngine.Random.Range(-4f, 4f)
+        );
+
+        playerAgent.SetDestination(randomPos);
     }
 
-    // Update is called once per frame
-    void Update()
+    void pursue()
     {
-        
-    }
-}
-**Evader script**
-public class Evader : MonoBehaviour
-{
-    // Start is called before the first frame update
-    public NavMeshAgent agent;
-    public Transform target;
-    public float evadespeed;
-    void Start()
-    {
-        agent= GetComponent<NavMeshAgent>();
+        Vector3 targetvelocity = player.position - pursuer.position;
+
+        Vector3 futurepos =
+            pursuer.position +
+            targetvelocity.normalized * pursueSpeed;
+
+        pursuerAgent.SetDestination(futurepos);
     }
 
     void evade()
     {
-        Vector3 fleedir = transform.position - target.position;
-        Vector3 evadeposition = transform.position + fleedir.normalized * evadespeed;
-        agent.SetDestination(evadeposition);
+        Vector3 fleedir = evader.position - player.position;
 
+        Vector3 evadeposition =
+            evader.position +
+            fleedir.normalized * evadeSpeed;
+
+        evaderAgent.SetDestination(evadeposition);
     }
-    // Update is called once per frame
+
+    void playerMove()
+    {
+        if (!playerAgent.pathPending &&
+            playerAgent.remainingDistance < 0.5f)
+        {
+            Vector3 newPos = new Vector3(
+                UnityEngine.Random.Range(-4f, 4f),
+                0.5f,
+                UnityEngine.Random.Range(-4f, 4f)
+            );
+
+            playerAgent.SetDestination(newPos);
+        }
+    }
+
     void Update()
     {
-        evade();          
-     }
-}
-**Pursuer script**
-public class Pursuer: MonoBehaviour
-{
-    // Start is called before the first frame update
-    public NavMeshAgent agent;
-    public Transform target;
-    public float speed;
-    void Start()
-    {
-        agent=this.GetComponent<NavMeshAgent>();
+        playerMove();
+        pursue();
+        evade();
     }
-       // Update is called once per frame
-    void pursue()
-    {
-       Vector3 targetvelocity=target.position-transform.position;
-       Vector3 futurepos = transform.position + targetvelocity.normalized*speed;
-       agent.SetDestination(futurepos);
-    } 
-    // Update is called once per frame
-    void Update()
-    {
-        pursue();          
-     }
 }
 ```
 7. Attach the Script to each player,pursuer and Evader.
@@ -108,6 +116,7 @@ public class Pursuer: MonoBehaviour
 ### Output:
 
 
+<img width="1918" height="1001" alt="image" src="https://github.com/user-attachments/assets/ce479f7b-7bc6-4cf3-9947-6742fbc1a562" />
 
 
 
