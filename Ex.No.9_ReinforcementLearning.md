@@ -132,9 +132,10 @@ public class RollerAgent : Agent
         continuous[1] = Input.GetAxis("Vertical");
     }
 }
+```
 
 2. Create a "Rollerball.yaml" file (create a Config folder inside your project ) attach the following code 
-
+```
 behaviors:
   RollerBallBehavior:
     trainer_type: ppo
@@ -157,13 +158,16 @@ behaviors:
     max_steps: 500000
     time_horizon: 64
     summary_freq: 10000
+```
+
 ### Output:
 
+#### Before training:
+<img width="519" height="320" alt="WhatsApp Image 2026-05-22 at 08 09 44" src="https://github.com/user-attachments/assets/4c5aaf0b-d8d9-41ab-b761-505a8a04ff4c" />
 
 
-
-
-
+#### After training:
+<img width="421" height="292" alt="WhatsApp Image 2026-05-22 at 08 09 45" src="https://github.com/user-attachments/assets/5a02d872-137f-4378-8b3f-cc3a19715a12" />
 
 
 
