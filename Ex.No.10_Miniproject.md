@@ -19,7 +19,7 @@ To develop "Maze Runner" game in Unity integrating A* algorithm and depth first 
 
 ### Program:
 Player Movement
-
+```
 using System.Collections;
 using UnityEngine;
 
@@ -118,10 +118,10 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 0;  // Stop the game
     }
 }
-
+```
 
 Ghost AI
-
+```
 using System.Collections;
 using UnityEngine;
 
@@ -201,9 +201,9 @@ public class GhostAI : MonoBehaviour
         Time.timeScale = 0;  // Stop the game
     }
 }
-
+```
 PathNode
-
+```
 public class PathNode
 {
     public int x, y;
@@ -227,9 +227,9 @@ public class PathNode
 
     public override int GetHashCode() => x * 1000 + y;
 }
-
+```
 Pathfinding
-
+```
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -299,9 +299,9 @@ public class Pathfinding : MonoBehaviour
         Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right
     };
 }
-
+```
 Maze Generator
-
+```
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -434,7 +434,7 @@ public class MazeGenerator : MonoBehaviour
     public Vector2Int GetStartPosition() => new Vector2Int(1, 1);
     public Vector2Int GetEndPosition() => new Vector2Int(width - 2, height - 2);
 }
-
+```
 ### Output:
 
 ![image](https://github.com/user-attachments/assets/f819c598-1033-4c43-b69b-d5bfdc8989aa)
