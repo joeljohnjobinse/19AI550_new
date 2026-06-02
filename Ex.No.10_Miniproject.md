@@ -436,8 +436,8 @@ public class MazeGenerator : MonoBehaviour
 }
 ```
 ### Output:
+<img width="1069" height="465" alt="image" src="https://github.com/user-attachments/assets/3e74d357-0c3f-42b3-9709-31790b8dc09d" />
 
-![image](https://github.com/user-attachments/assets/f819c598-1033-4c43-b69b-d5bfdc8989aa)
 
 ### Result:
 Thus, the game Maze Runner was developed using Unity and adopted A* algorithm.
